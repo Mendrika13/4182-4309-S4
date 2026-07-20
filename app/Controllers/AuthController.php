@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Models\ClientModel;
 use App\Models\PrefixeModel;
+use CodeIgniter\Controller;
 
-class AuthController extends BaseController
+class AuthController extends Controller
 {
     protected ClientModel $clientModel;
     protected PrefixeModel $prefixeModel;
