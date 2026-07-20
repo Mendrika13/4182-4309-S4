@@ -40,7 +40,6 @@
 
     <div class="row g-4">
 
-        <!-- Liste des clients -->
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -82,7 +81,7 @@
             </div>
         </div>
 
-        <!-- Gestion des préfixes -->
+
         <div class="col-lg-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white">

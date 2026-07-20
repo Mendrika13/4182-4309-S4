@@ -6,8 +6,9 @@ use App\Models\BaremeFraisModel;
 use App\Models\ClientModel;
 use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
+use CodeIgniter\Controller;
 
-class ClientController extends BaseController
+class ClientController extends Controller
 {
     protected ClientModel $clientModel;
     protected TransactionModel $transactionModel;

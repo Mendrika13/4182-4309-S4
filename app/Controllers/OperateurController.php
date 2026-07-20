@@ -5,8 +5,9 @@ namespace App\Controllers;
 use App\Models\ClientModel;
 use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
+use CodeIgniter\Controller;
 
-class OperateurController extends BaseController
+class OperateurController extends Controller
 {
     protected ClientModel $clientModel;
     protected TransactionModel $transactionModel;

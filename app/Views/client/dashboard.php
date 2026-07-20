@@ -47,7 +47,7 @@
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-success">⬇️ Dépôt</h5>
+                    <h5 class="card-title text-success"> Dépôt</h5>
                     <p class="text-muted small">Gratuit, sans frais.</p>
                     <form action="<?= base_url('client/depot') ?>" method="post">
                         <?= csrf_field() ?>
@@ -64,7 +64,7 @@
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-danger">⬆️ Retrait</h5>
+                    <h5 class="card-title text-danger"> Retrait</h5>
                     <p class="text-muted small">Frais selon barème en vigueur.</p>
                     <form action="<?= base_url('client/retrait') ?>" method="post">
                         <?= csrf_field() ?>
@@ -82,7 +82,7 @@
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">↔️ Transfert</h5>
+                    <h5 class="card-title text-primary"> Transfert</h5>
                     <p class="text-muted small">Vers un autre numéro Mobile Money.</p>
                     <form action="<?= base_url('client/transfert') ?>" method="post">
                         <?= csrf_field() ?>
