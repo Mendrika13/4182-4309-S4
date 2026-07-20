@@ -2,28 +2,31 @@
 
 namespace App\Models;
 
-use App\Core\Database;
+use CodeIgniter\Model;
 
-class ClientModel
+class ClientModel extends Model
 {
-    public function find(int $id): ?array
-    {
-        $stmt = Database::connexion()->prepare('SELECT * FROM clients WHERE id = ?');
-        $stmt->execute([$id]);
-        $client = $stmt->fetch();
+    protected $table            = 'clients';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ['telephone', 'date_creation'];
+    protected $useTimestamps    = false;
 
-        return $client ?: null;
-    }
-
+    /**
+     * Recherche un client par son numéro de téléphone.
+     */
     public function findByTelephone(string $telephone): ?array
     {
-        $stmt = Database::connexion()->prepare('SELECT * FROM clients WHERE telephone = ?');
-        $stmt->execute([$telephone]);
-        $client = $stmt->fetch();
-
-        return $client ?: null;
+        return $this->where('telephone', $telephone)->first();
     }
 
+    /**
+     * Retourne le client correspondant au numéro donné. S'il n'existe pas
+     * encore en base, le compte est créé automatiquement (pas d'inscription
+     * préalable requise), conformément à la logique de login automatique.
+     */
     public function trouverOuCreer(string $telephone): array
     {
         $client = $this->findByTelephone($telephone);
@@ -32,26 +35,63 @@ class ClientModel
             return $client;
         }
 
-        $db = Database::connexion();
-        $stmt = $db->prepare('INSERT INTO clients (telephone, date_creation) VALUES (?, ?)');
-        $stmt->execute([$telephone, date('Y-m-d H:i:s')]);
+        $id = $this->insert([
+            'telephone'     => $telephone,
+            'date_creation' => date('Y-m-d H:i:s'),
+        ], true);
 
-        return $this->find((int) $db->lastInsertId());
+        return $this->find($id);
     }
 
+    /**
+     * Calcule le solde dynamique d'un client à partir de l'historique des
+     * transactions, selon la formule :
+     *
+     * Solde = (Sommes des dépôts + Sommes des transferts reçus)
+     *       - (Sommes des retraits + Sommes des frais de retrait
+     *          + Sommes des transferts envoyés + Sommes des frais de transfert)
+     */
     public function getSolde(int $clientId): float
     {
-        $stmt = Database::connexion()->prepare('SELECT solde FROM v_soldes_clients WHERE client_id = ?');
-        $stmt->execute([$clientId]);
-        $ligne = $stmt->fetch();
+        $db = $this->db;
 
-        return $ligne ? (float) $ligne['solde'] : 0.0;
+        $sql = "
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = 'depot'     AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = 'retrait'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = 'retrait'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert
+            FROM transactions
+        ";
+
+        $result = $db->query($sql, [
+            $clientId, $clientId, $clientId, $clientId, $clientId, $clientId,
+        ])->getRowArray();
+
+        $credits = (float) $result['total_depots'] + (float) $result['total_transferts_recus'];
+
+        $debits = (float) $result['total_retraits']
+            + (float) $result['total_frais_retrait']
+            + (float) $result['total_transferts_envoyes']
+            + (float) $result['total_frais_transfert'];
+
+        return $credits - $debits;
     }
 
+    /**
+     * Retourne tous les clients avec leur solde calculé, pour la vue
+     * opérateur (liste globale des comptes clients).
+     */
     public function getTousAvecSolde(): array
     {
-        $stmt = Database::connexion()->query('SELECT * FROM v_soldes_clients ORDER BY date_creation DESC');
+        $clients = $this->orderBy('date_creation', 'DESC')->findAll();
 
-        return $stmt->fetchAll();
+        foreach ($clients as &$client) {
+            $client['solde'] = $this->getSolde((int) $client['id']);
+        }
+
+        return $clients;
     }
 }

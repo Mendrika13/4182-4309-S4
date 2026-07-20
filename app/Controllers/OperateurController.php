@@ -2,109 +2,109 @@
 
 namespace App\Controllers;
 
-use App\Core\Session;
-use App\Core\View;
 use App\Models\ClientModel;
 use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
 
-class OperateurController
+class OperateurController extends BaseController
 {
-    private ClientModel $clientModel;
-    private TransactionModel $transactionModel;
-    private PrefixeModel $prefixeModel;
+    protected ClientModel $clientModel;
+    protected TransactionModel $transactionModel;
+    protected PrefixeModel $prefixeModel;
 
     public function __construct()
     {
-        $this->clientModel = new ClientModel();
+        $this->clientModel      = new ClientModel();
         $this->transactionModel = new TransactionModel();
-        $this->prefixeModel = new PrefixeModel();
+        $this->prefixeModel     = new PrefixeModel();
     }
 
-    public function index(): void
+    /**
+     * Affiche le formulaire de connexion opérateur. Si déjà connecté,
+     * redirige directement vers le dashboard.
+     */
+    public function index()
     {
-        if (Session::get('is_operateur')) {
-            header('Location: ' . View::baseUrl('operateur/dashboard'));
-            exit;
+        if (session()->get('is_operateur')) {
+            return redirect()->to('/operateur/dashboard');
         }
 
-        View::render('operateur/login');
+        return view('operateur/login.php');
     }
 
-    public function login(): void
+    /**
+     * Traite la connexion opérateur via un mot de passe simple défini
+     * dans le fichier .env (OPERATEUR_PASSWORD). Mécanisme volontairement
+     * minimal pour cette Version 1.
+     */
+    public function login()
     {
-        if (! Session::verifierCsrf($_POST['csrf_token'] ?? null)) {
-            Session::setFlash('error', 'Jeton de sécurité invalide, veuillez réessayer.');
-            header('Location: ' . View::baseUrl('operateur/login'));
-            exit;
-        }
-
-        $motDePasse = (string) ($_POST['mot_de_passe'] ?? '');
+        $motDePasse     = (string) $this->request->getPost('mot_de_passe');
         $motDePasseAttendu = env('OPERATEUR_PASSWORD', 'admin123');
 
         if ($motDePasse !== $motDePasseAttendu) {
-            Session::setFlash('error', 'Mot de passe opérateur incorrect.');
-            header('Location: ' . View::baseUrl('operateur/login'));
-            exit;
+            session()->setFlashdata('error', 'Mot de passe opérateur incorrect.');
+
+            return redirect()->to('/operateur/login');
         }
 
-        Session::set('is_operateur', true);
-        Session::setFlash('success', 'Connexion opérateur réussie.');
-        header('Location: ' . View::baseUrl('operateur/dashboard'));
-        exit;
+        session()->set('is_operateur', true);
+        session()->setFlashdata('success', 'Connexion opérateur réussie.');
+
+        return redirect()->to('/operateur/dashboard');
     }
 
-    public function logout(): void
+
+    public function logout()
     {
-        Session::remove(['is_operateur']);
-        Session::setFlash('success', 'Déconnexion opérateur effectuée.');
-        header('Location: ' . View::baseUrl('operateur/login'));
-        exit;
+        session()->remove('is_operateur');
+        session()->setFlashdata('success', 'Déconnexion opérateur effectuée.');
+
+        return redirect()->to('/operateur/login');
     }
 
-    public function dashboard(): void
+
+    public function dashboard()
     {
-        View::render('operateur/dashboard', [
+        $data = [
             'gainGlobal' => $this->transactionModel->getGainTotalOperateur(),
             'clients'    => $this->clientModel->getTousAvecSolde(),
             'prefixes'   => $this->prefixeModel->listeTriee(),
-        ]);
+        ];
+
+        return view('operateur/dashboard.php', $data);
     }
 
-    public function ajouterPrefixe(): void
-    {
-        if (! Session::verifierCsrf($_POST['csrf_token'] ?? null)) {
-            Session::setFlash('error', 'Jeton de sécurité invalide, veuillez réessayer.');
-            header('Location: ' . View::baseUrl('operateur/dashboard'));
-            exit;
-        }
 
-        $prefixe = trim((string) ($_POST['prefixe'] ?? ''));
+    public function ajouterPrefixe()
+    {
+        $prefixe = trim((string) $this->request->getPost('prefixe'));
 
         if (! preg_match('/^[0-9]{3}$/', $prefixe)) {
-            Session::setFlash('error', 'Le préfixe doit être composé de 3 chiffres exactement.');
-            header('Location: ' . View::baseUrl('operateur/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Le préfixe doit être composé de 3 chiffres exactement.');
+
+            return redirect()->to('/operateur/dashboard');
         }
 
         if ($this->prefixeModel->estAutorise($prefixe)) {
-            Session::setFlash('error', "Le préfixe {$prefixe} existe déjà.");
-            header('Location: ' . View::baseUrl('operateur/dashboard'));
-            exit;
+            session()->setFlashdata('error', "Le préfixe {$prefixe} existe déjà.");
+
+            return redirect()->to('/operateur/dashboard');
         }
 
-        $this->prefixeModel->ajouter($prefixe);
+        $this->prefixeModel->insert(['prefixe' => $prefixe]);
 
-        Session::setFlash('success', "Préfixe {$prefixe} ajouté avec succès.");
-        header('Location: ' . View::baseUrl('operateur/dashboard'));
-        exit;
+        session()->setFlashdata('success', "Préfixe {$prefixe} ajouté avec succès.");
+
+        return redirect()->to('/operateur/dashboard');
     }
 
-    public function supprimerPrefixe(string $id): void
+    public function supprimerPrefixe($id)
     {
-        $this->prefixeModel->supprimer((int) $id);
-        Session::setFlash('success', 'Préfixe supprimé.');
-        header('Location: ' . View::baseUrl('operateur/dashboard'));
-        exit;
+        $this->prefixeModel->delete((int) $id);
+
+        session()->setFlashdata('success', 'Préfixe supprimé.');
+
+        return redirect()->to('/operateur/dashboard');
     }
 }

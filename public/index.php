@@ -1,30 +1,59 @@
 <?php
 
-require dirname(__DIR__) . '/app/bootstrap.php';
+use CodeIgniter\Boot;
+use Config\Paths;
 
-use App\Controllers\AuthController;
-use App\Controllers\ClientController;
-use App\Controllers\OperateurController;
-use App\Core\Router;
+/*
+ *---------------------------------------------------------------
+ * CHECK PHP VERSION
+ *---------------------------------------------------------------
+ */
 
-$router = new Router();
+$minPhpVersion = '8.2'; // If you update this, don't forget to update `spark`.
+if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
+    $message = sprintf(
+        'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
+        $minPhpVersion,
+        PHP_VERSION,
+    );
 
-$router->get('/', [AuthController::class, 'index']);
-$router->get('/login', [AuthController::class, 'index']);
-$router->post('/login', [AuthController::class, 'login']);
-$router->get('/logout', [AuthController::class, 'logout']);
+    header('HTTP/1.1 503 Service Unavailable.', true, 503);
+    echo $message;
 
-$router->get('/client/dashboard', [ClientController::class, 'dashboard'], 'clientAuth');
-$router->post('/client/depot', [ClientController::class, 'depot'], 'clientAuth');
-$router->post('/client/retrait', [ClientController::class, 'retrait'], 'clientAuth');
-$router->post('/client/transfert', [ClientController::class, 'transfert'], 'clientAuth');
+    exit(1);
+}
 
-$router->get('/operateur/login', [OperateurController::class, 'index']);
-$router->post('/operateur/login', [OperateurController::class, 'login']);
-$router->get('/operateur/logout', [OperateurController::class, 'logout']);
+/*
+ *---------------------------------------------------------------
+ * SET THE CURRENT DIRECTORY
+ *---------------------------------------------------------------
+ */
 
-$router->get('/operateur/dashboard', [OperateurController::class, 'dashboard'], 'operateurAuth');
-$router->post('/operateur/prefixe/ajouter', [OperateurController::class, 'ajouterPrefixe'], 'operateurAuth');
-$router->get('/operateur/prefixe/supprimer/(:num)', [OperateurController::class, 'supprimerPrefixe'], 'operateurAuth');
+// Path to the front controller (this file)
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
-$router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+// Ensure the current directory is pointing to the front controller's directory
+if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
+    chdir(FCPATH);
+}
+
+/*
+ *---------------------------------------------------------------
+ * BOOTSTRAP THE APPLICATION
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
+
+// LOAD OUR PATHS CONFIG FILE
+// This is the line that might need to be changed, depending on your folder structure.
+require FCPATH . '../app/Config/Paths.php';
+// ^^^ Change this line if you move your application folder
+
+$paths = new Paths();
+
+// LOAD THE FRAMEWORK BOOTSTRAP FILE
+require $paths->systemDirectory . '/Boot.php';
+
+exit(Boot::bootWeb($paths));

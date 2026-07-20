@@ -2,158 +2,147 @@
 
 namespace App\Controllers;
 
-use App\Core\Session;
-use App\Core\View;
 use App\Models\BaremeFraisModel;
 use App\Models\ClientModel;
 use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
 
-class ClientController
+class ClientController extends BaseController
 {
-    private ClientModel $clientModel;
-    private TransactionModel $transactionModel;
-    private BaremeFraisModel $baremeFraisModel;
-    private PrefixeModel $prefixeModel;
+    protected ClientModel $clientModel;
+    protected TransactionModel $transactionModel;
+    protected BaremeFraisModel $baremeFraisModel;
+    protected PrefixeModel $prefixeModel;
 
     public function __construct()
     {
-        $this->clientModel = new ClientModel();
+        $this->clientModel      = new ClientModel();
         $this->transactionModel = new TransactionModel();
         $this->baremeFraisModel = new BaremeFraisModel();
-        $this->prefixeModel = new PrefixeModel();
+        $this->prefixeModel     = new PrefixeModel();
     }
 
-    public function dashboard(): void
+
+
+    public function dashboard()
     {
-        $clientId = (int) Session::get('client_id');
-        $client = $this->clientModel->find($clientId);
+        $clientId = (int) session()->get('client_id');
+        $client   = $this->clientModel->find($clientId);
 
         if (! $client) {
-            Session::remove(['client_id', 'telephone', 'isLoggedIn']);
-            header('Location: ' . View::baseUrl('login'));
-            exit;
+
+            session()->remove(['client_id', 'telephone', 'isLoggedIn']);
+
+            return redirect()->to('/login');
         }
 
-        View::render('client/dashboard', [
+        $data = [
             'client'     => $client,
             'solde'      => $this->clientModel->getSolde($clientId),
             'historique' => $this->transactionModel->getHistoriqueClient($clientId),
-        ]);
+        ];
+
+        return view('client/dashboard.php', $data);
     }
 
-    public function depot(): void
-    {
-        if (! Session::verifierCsrf($_POST['csrf_token'] ?? null)) {
-            Session::setFlash('error', 'Jeton de sécurité invalide, veuillez réessayer.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
-        }
 
-        $clientId = (int) Session::get('client_id');
-        $montant = (float) ($_POST['montant'] ?? 0);
+    public function depot()
+    {
+        $clientId = (int) session()->get('client_id');
+        $montant  = (float) $this->request->getPost('montant');
 
         if ($montant <= 0) {
-            Session::setFlash('error', 'Le montant du dépôt doit être supérieur à 0.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Le montant du dépôt doit être supérieur à 0.');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $this->transactionModel->enregistrerDepot($clientId, $montant);
 
-        Session::setFlash('success', 'Dépôt de ' . View::argent($montant) . ' Ar effectué avec succès.');
-        header('Location: ' . View::baseUrl('client/dashboard'));
-        exit;
+        session()->setFlashdata('success', 'Dépôt de ' . number_format($montant, 0, ',', ' ') . ' Ar effectué avec succès.');
+
+        return redirect()->to('/client/dashboard');
     }
 
-    public function retrait(): void
-    {
-        if (! Session::verifierCsrf($_POST['csrf_token'] ?? null)) {
-            Session::setFlash('error', 'Jeton de sécurité invalide, veuillez réessayer.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
-        }
 
-        $clientId = (int) Session::get('client_id');
-        $montant = (float) ($_POST['montant'] ?? 0);
+    public function retrait()
+    {
+        $clientId = (int) session()->get('client_id');
+        $montant  = (float) $this->request->getPost('montant');
 
         if ($montant <= 0) {
-            Session::setFlash('error', 'Le montant du retrait doit être supérieur à 0.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Le montant du retrait doit être supérieur à 0.');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $frais = $this->baremeFraisModel->getFraisApplicable('retrait', $montant);
         $solde = $this->clientModel->getSolde($clientId);
 
         if ($solde < ($montant + $frais)) {
-            Session::setFlash('error', 'Solde insuffisant pour ce retrait (montant + frais de ' . View::argent($frais) . ' Ar).');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Solde insuffisant pour ce retrait (montant + frais de ' . number_format($frais, 0, ',', ' ') . ' Ar).');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $this->transactionModel->enregistrerRetrait($clientId, $montant, $frais);
 
-        Session::setFlash('success', 'Retrait de ' . View::argent($montant) . ' Ar effectué (frais : ' . View::argent($frais) . ' Ar).');
-        header('Location: ' . View::baseUrl('client/dashboard'));
-        exit;
+        session()->setFlashdata('success', 'Retrait de ' . number_format($montant, 0, ',', ' ') . ' Ar effectué (frais : ' . number_format($frais, 0, ',', ' ') . ' Ar).');
+
+        return redirect()->to('/client/dashboard');
     }
 
-    public function transfert(): void
-    {
-        if (! Session::verifierCsrf($_POST['csrf_token'] ?? null)) {
-            Session::setFlash('error', 'Jeton de sécurité invalide, veuillez réessayer.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
-        }
 
-        $clientId = (int) Session::get('client_id');
-        $telephoneDest = trim((string) ($_POST['telephone_destinataire'] ?? ''));
-        $montant = (float) ($_POST['montant'] ?? 0);
+    public function transfert()
+    {
+        $clientId           = (int) session()->get('client_id');
+        $telephoneDest      = trim((string) $this->request->getPost('telephone_destinataire'));
+        $montant            = (float) $this->request->getPost('montant');
 
         if (! preg_match('/^0[0-9]{9}$/', $telephoneDest)) {
-            Session::setFlash('error', 'Numéro de destinataire invalide. Format attendu : 0XXXXXXXXX.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Numéro de destinataire invalide. Format attendu : 0XXXXXXXXX.');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $client = $this->clientModel->find($clientId);
 
         if ($telephoneDest === $client['telephone']) {
-            Session::setFlash('error', 'Vous ne pouvez pas effectuer un transfert vers votre propre numéro.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Vous ne pouvez pas effectuer un transfert vers votre propre numéro.');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $prefixeDest = substr($telephoneDest, 0, 3);
 
         if (! $this->prefixeModel->estAutorise($prefixeDest)) {
-            Session::setFlash('error', "Le préfixe {$prefixeDest} du destinataire n'est pas reconnu.");
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', "Le préfixe {$prefixeDest} du destinataire n'est pas reconnu.");
+
+            return redirect()->to('/client/dashboard');
         }
 
         if ($montant <= 0) {
-            Session::setFlash('error', 'Le montant du transfert doit être supérieur à 0.');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Le montant du transfert doit être supérieur à 0.');
+
+            return redirect()->to('/client/dashboard');
         }
 
         $frais = $this->baremeFraisModel->getFraisApplicable('transfert', $montant);
         $solde = $this->clientModel->getSolde($clientId);
 
         if ($solde < ($montant + $frais)) {
-            Session::setFlash('error', 'Solde insuffisant pour ce transfert (montant + frais de ' . View::argent($frais) . ' Ar).');
-            header('Location: ' . View::baseUrl('client/dashboard'));
-            exit;
+            session()->setFlashdata('error', 'Solde insuffisant pour ce transfert (montant + frais de ' . number_format($frais, 0, ',', ' ') . ' Ar).');
+
+            return redirect()->to('/client/dashboard');
         }
+
 
         $destinataire = $this->clientModel->trouverOuCreer($telephoneDest);
 
         $this->transactionModel->enregistrerTransfert($clientId, (int) $destinataire['id'], $montant, $frais);
 
-        Session::setFlash('success', 'Transfert de ' . View::argent($montant) . ' Ar vers ' . $telephoneDest . ' effectué (frais : ' . View::argent($frais) . ' Ar).');
-        header('Location: ' . View::baseUrl('client/dashboard'));
-        exit;
+        session()->setFlashdata('success', 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . $telephoneDest . ' effectué (frais : ' . number_format($frais, 0, ',', ' ') . ' Ar).');
+
+        return redirect()->to('/client/dashboard');
     }
 }

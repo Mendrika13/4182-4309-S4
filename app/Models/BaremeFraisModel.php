@@ -2,17 +2,32 @@
 
 namespace App\Models;
 
-use App\Core\Database;
+use CodeIgniter\Model;
 
-class BaremeFraisModel
+class BaremeFraisModel extends Model
 {
+    protected $table            = 'baremes_frais';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $allowedFields    = ['type_operation', 'montant_min', 'montant_max', 'frais'];
+    protected $useTimestamps    = false;
+
+    /**
+     * Retourne le montant du frais applicable pour un type d'opération
+     * ('retrait' ou 'transfert') et un montant donné, selon la tranche
+     * définie dans la table baremes_frais.
+     *
+     * Retourne 0.0 si aucune tranche ne correspond (par sécurité, on
+     * considère alors qu'aucun barème n'est configuré pour ce montant).
+     */
     public function getFraisApplicable(string $typeOperation, float $montant): float
     {
-        $stmt = Database::connexion()->prepare(
-            'SELECT frais FROM baremes_frais WHERE type_operation = ? AND montant_min <= ? AND montant_max >= ? LIMIT 1'
-        );
-        $stmt->execute([$typeOperation, $montant, $montant]);
-        $bareme = $stmt->fetch();
+        $bareme = $this->where('type_operation', $typeOperation)
+            ->where('montant_min <=', $montant)
+            ->where('montant_max >=', $montant)
+            ->first();
 
         return $bareme ? (float) $bareme['frais'] : 0.0;
     }
