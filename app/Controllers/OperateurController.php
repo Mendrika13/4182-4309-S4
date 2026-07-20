@@ -54,9 +54,7 @@ class OperateurController extends BaseController
         return redirect()->to('/operateur/dashboard');
     }
 
-    /**
-     * Déconnexion opérateur.
-     */
+
     public function logout()
     {
         session()->remove('is_operateur');
@@ -65,10 +63,7 @@ class OperateurController extends BaseController
         return redirect()->to('/operateur/login');
     }
 
-    /**
-     * Tableau de bord opérateur : gain global cumulé, liste des clients
-     * avec soldes, configuration des préfixes autorisés.
-     */
+
     public function dashboard()
     {
         $data = [
@@ -80,9 +75,7 @@ class OperateurController extends BaseController
         return view('operateur/dashboard.php', $data);
     }
 
-    /**
-     * Ajoute un nouveau préfixe autorisé.
-     */
+
     public function ajouterPrefixe()
     {
         $prefixe = trim((string) $this->request->getPost('prefixe'));
@@ -106,9 +99,6 @@ class OperateurController extends BaseController
         return redirect()->to('/operateur/dashboard');
     }
 
-    /**
-     * Supprime un préfixe autorisé.
-     */
     public function supprimerPrefixe($id)
     {
         $this->prefixeModel->delete((int) $id);

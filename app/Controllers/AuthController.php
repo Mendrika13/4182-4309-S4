@@ -16,10 +16,7 @@ class AuthController extends BaseController
         $this->prefixeModel = new PrefixeModel();
     }
 
-    /**
-     * Affiche le formulaire de connexion. Si un client est déjà connecté,
-     * on le redirige directement vers son tableau de bord.
-     */
+
     public function index()
     {
         if (session()->get('client_id')) {
@@ -29,18 +26,12 @@ class AuthController extends BaseController
         return view('auth/login.php');
     }
 
-    /**
-     * Traite la connexion par numéro de téléphone :
-     * - vérifie le format du numéro,
-     * - vérifie que le préfixe est autorisé,
-     * - crée le compte automatiquement si le numéro est valide mais inconnu,
-     * - enregistre le client en session.
-     */
+
     public function login()
     {
         $telephone = trim((string) $this->request->getPost('telephone'));
 
-        // Format attendu : 10 chiffres commençant par 0 (ex: 0331234567)
+
         if (! preg_match('/^0[0-9]{9}$/', $telephone)) {
             session()->setFlashdata('error', 'Numéro de téléphone invalide. Format attendu : 0XXXXXXXXX (10 chiffres).');
 
@@ -55,7 +46,7 @@ class AuthController extends BaseController
             return redirect()->to('/login');
         }
 
-        // Récupère le client existant, ou le crée automatiquement
+
         $client = $this->clientModel->trouverOuCreer($telephone);
 
         session()->set([
@@ -69,9 +60,7 @@ class AuthController extends BaseController
         return redirect()->to('/client/dashboard');
     }
 
-    /**
-     * Déconnexion du client.
-     */
+
     public function logout()
     {
         session()->remove(['client_id', 'telephone', 'isLoggedIn']);

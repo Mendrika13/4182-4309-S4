@@ -22,16 +22,15 @@ class ClientController extends BaseController
         $this->prefixeModel     = new PrefixeModel();
     }
 
-    /**
-     * Tableau de bord client : numéro, solde actuel, historique complet.
-     */
+
+
     public function dashboard()
     {
         $clientId = (int) session()->get('client_id');
         $client   = $this->clientModel->find($clientId);
 
         if (! $client) {
-            // Sécurité : si le client de la session n'existe plus en base
+
             session()->remove(['client_id', 'telephone', 'isLoggedIn']);
 
             return redirect()->to('/login');
@@ -46,10 +45,7 @@ class ClientController extends BaseController
         return view('client/dashboard.php', $data);
     }
 
-    /**
-     * Traite un dépôt sur le compte du client connecté. Le dépôt est
-     * toujours gratuit (frais = 0).
-     */
+
     public function depot()
     {
         $clientId = (int) session()->get('client_id');
@@ -68,10 +64,7 @@ class ClientController extends BaseController
         return redirect()->to('/client/dashboard');
     }
 
-    /**
-     * Traite un retrait sur le compte du client connecté, avec vérification
-     * du solde suffisant (montant + frais applicable selon le barème).
-     */
+
     public function retrait()
     {
         $clientId = (int) session()->get('client_id');
@@ -99,11 +92,7 @@ class ClientController extends BaseController
         return redirect()->to('/client/dashboard');
     }
 
-    /**
-     * Traite un transfert vers un autre numéro de téléphone. Le destinataire
-     * est créé automatiquement s'il n'existe pas encore et que son préfixe
-     * est autorisé, selon la même logique que le login automatique.
-     */
+
     public function transfert()
     {
         $clientId           = (int) session()->get('client_id');
@@ -147,7 +136,7 @@ class ClientController extends BaseController
             return redirect()->to('/client/dashboard');
         }
 
-        // Trouve ou crée automatiquement le compte destinataire
+
         $destinataire = $this->clientModel->trouverOuCreer($telephoneDest);
 
         $this->transactionModel->enregistrerTransfert($clientId, (int) $destinataire['id'], $montant, $frais);
