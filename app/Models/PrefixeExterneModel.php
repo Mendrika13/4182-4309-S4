@@ -14,9 +14,9 @@ class PrefixeExterneModel extends Model
     protected $allowedFields    = ['prefixe', 'autre_operateur_id'];
     protected $useTimestamps    = false;
 
-    /**
-     * Recherche le préfixe externe et retourne les informations associées.
-     */
+    
+
+
     public function trouverParPrefixe(string $prefixe): ?array
     {
         return $this->select('prefixes_externes.*, autres_operateurs.nom AS operateur_nom')

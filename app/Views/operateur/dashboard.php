@@ -10,7 +10,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <span class="navbar-brand fw-bold">🏦 Espace Opérateur</span>
+        <span class="navbar-brand fw-bold"> Espace Opérateur</span>
         <a href="<?= base_url('operateur/logout') ?>" class="btn btn-outline-light btn-sm">Déconnexion</a>
     </div>
 </nav>
@@ -29,7 +29,7 @@
         </div>
     <?php endif; ?>
 
-    <!-- Situation Gain -->
+    
     <div class="row mb-4 g-3">
         <div class="col-md-6">
             <div class="card shadow-sm border-0 bg-dark text-white h-100">
@@ -51,13 +51,13 @@
         </div>
     </div>
 
-    <!-- Configuration Commission Externe -->
+    
     <div class="card shadow-sm border-0 mb-4 bg-white">
         <div class="card-body py-3">
             <form action="<?= base_url('operateur/commission/modifier') ?>" method="post" class="row align-items-center g-3">
                 <?= csrf_field() ?>
                 <div class="col-auto">
-                    <label class="form-label mb-0 fw-bold">⚙️ Commission sur transfert externe :</label>
+                    <label class="form-label mb-0 fw-bold">️ Commission sur transfert externe :</label>
                 </div>
                 <div class="col-auto">
                     <div class="input-group input-group-sm" style="max-width: 150px;">
@@ -74,7 +74,7 @@
 
     <div class="row g-4 mb-4">
 
-        <!-- Liste des clients -->
+        
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <!-- Gestion des préfixes internes -->
+        
         <div class="col-lg-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white">
@@ -149,13 +149,13 @@
 
     </div>
 
-    <!-- Gestion des Concurrents (Autres Opérateurs et Préfixes Externes) -->
+    
     <div class="row g-4 mb-4">
-        <!-- Autres opérateurs -->
+        
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white">
-                    <h5 class="mb-0">🏢 Autres Opérateurs (Concurrents)</h5>
+                    <h5 class="mb-0"> Autres Opérateurs (Concurrents)</h5>
                 </div>
                 <div class="card-body">
                     <form action="<?= base_url('operateur/autre-operateur/ajouter') ?>" method="post" class="d-flex gap-2 mb-3">
@@ -195,11 +195,11 @@
             </div>
         </div>
 
-        <!-- Préfixes concurrents -->
+        
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white">
-                    <h5 class="mb-0">📞 Préfixes des Concurrents</h5>
+                    <h5 class="mb-0"> Préfixes des Concurrents</h5>
                 </div>
                 <div class="card-body">
                     <form action="<?= base_url('operateur/prefixe-externe/ajouter') ?>" method="post" class="d-flex gap-2 mb-3">
@@ -248,10 +248,10 @@
         </div>
     </div>
 
-    <!-- Situation des montants à envoyer -->
+    
     <div class="card shadow-sm border-0 mb-4 bg-white">
         <div class="card-header bg-white">
-            <h5 class="mb-0">✈️ Situation des montants à envoyer à chaque opérateur</h5>
+            <h5 class="mb-0">️ Situation des montants à envoyer à chaque opérateur</h5>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">

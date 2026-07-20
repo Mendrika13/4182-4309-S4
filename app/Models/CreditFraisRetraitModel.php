@@ -20,9 +20,9 @@ class CreditFraisRetraitModel extends Model
     ];
     protected $useTimestamps    = false;
 
-    /**
-     * Récupère le plus ancien crédit non utilisé pour un client.
-     */
+    
+
+
     public function getOldestUnusedCredit(int $clientId): ?array
     {
         return $this->where('client_id', $clientId)

@@ -28,10 +28,10 @@ class OperateurController extends BaseController
         $this->commissionExterneModel = new CommissionExterneModel();
     }
 
-    /**
-     * Affiche le formulaire de connexion opérateur. Si déjà connecté,
-     * redirige directement vers le dashboard.
-     */
+    
+
+
+
     public function index()
     {
         if (session()->get('is_operateur')) {
@@ -41,11 +41,11 @@ class OperateurController extends BaseController
         return view('operateur/login.php');
     }
 
-    /**
-     * Traite la connexion opérateur via un mot de passe simple défini
-     * dans le fichier .env (OPERATEUR_PASSWORD). Mécanisme volontairement
-     * minimal pour cette Version 1.
-     */
+    
+
+
+
+
     public function login()
     {
         $motDePasse     = (string) $this->request->getPost('mot_de_passe');
@@ -108,14 +108,14 @@ class OperateurController extends BaseController
             return redirect()->to('/operateur/dashboard');
         }
 
-        // Vérifier si existant chez interne
+        
         if ($this->prefixeModel->estAutorise($prefixe)) {
             session()->setFlashdata('error', "Le préfixe {$prefixe} existe déjà en interne.");
 
             return redirect()->to('/operateur/dashboard');
         }
 
-        // Vérifier si existant chez externe
+        
         if ($this->prefixeExterneModel->where('prefixe', $prefixe)->first() !== null) {
             session()->setFlashdata('error', "Le préfixe {$prefixe} est déjà configuré comme externe.");
 

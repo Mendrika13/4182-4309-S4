@@ -14,17 +14,17 @@ class PrefixeModel extends Model
     protected $allowedFields    = ['prefixe'];
     protected $useTimestamps    = false;
 
-    /**
-     * Vérifie si un préfixe (3 premiers chiffres d'un numéro) est autorisé.
-     */
+    
+
+
     public function estAutorise(string $prefixe): bool
     {
         return $this->where('prefixe', $prefixe)->first() !== null;
     }
 
-    /**
-     * Retourne la liste de tous les préfixes autorisés, triés.
-     */
+    
+
+
     public function listeTriee(): array
     {
         return $this->orderBy('prefixe', 'ASC')->findAll();

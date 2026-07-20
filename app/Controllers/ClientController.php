@@ -88,7 +88,7 @@ class ClientController extends BaseController
             return redirect()->to('/client/dashboard');
         }
 
-        // Vérifier s'il y a un crédit de frais de retrait prépayé et non utilisé
+        
         $credit = $this->creditFraisRetraitModel->getOldestUnusedCredit($clientId);
         $frais = 0.0;
         $hasCreditUsed = false;
@@ -111,7 +111,7 @@ class ClientController extends BaseController
         $transactionId = $this->transactionModel->enregistrerRetrait($clientId, $montant, $frais);
 
         if ($hasCreditUsed) {
-            // Marquer le crédit comme utilisé et lier à la transaction
+            
             $this->creditFraisRetraitModel->update($credit['id'], [
                 'utilise' => 1,
                 'transaction_retrait_id' => $transactionId
@@ -154,7 +154,7 @@ class ClientController extends BaseController
 
         $prefixeDest = substr($telephoneDest, 0, 3);
         
-        // Détecter si interne ou externe
+        
         $isInterne = $this->prefixeModel->estAutorise($prefixeDest);
         $externeInfo = null;
         
@@ -173,10 +173,10 @@ class ClientController extends BaseController
         if ($isInterne) {
             if ($inclureFraisRetrait) {
                 $fraisRetraitPrepaye = $this->baremeFraisModel->getFraisApplicable('retrait', $montant);
-                $frais += $fraisRetraitPrepaye; // Ajouté aux frais de l'expéditeur
+                $frais += $fraisRetraitPrepaye; 
             }
         } else {
-            // Externe : calcul de la commission et exclusion des frais de retrait
+            
             $pourcentageCommission = $this->commissionExterneModel->getPourcentage();
             $commission = ($pourcentageCommission / 100) * $montant;
         }
@@ -190,7 +190,7 @@ class ClientController extends BaseController
             return redirect()->to('/client/dashboard');
         }
 
-        // Créer l'enregistrement client pour les besoins d'historique (interne ou externe)
+        
         $destinataire = $this->clientModel->trouverOuCreer($telephoneDest);
 
         $transactionId = $this->transactionModel->enregistrerTransfert(
@@ -203,7 +203,7 @@ class ClientController extends BaseController
             $commission
         );
 
-        // Si interne et frais inclus, insérer un crédit frais de retrait
+        
         if ($isInterne && $inclureFraisRetrait && $fraisRetraitPrepaye > 0) {
             $this->creditFraisRetraitModel->insert([
                 'client_id'              => (int) $destinataire['id'],
@@ -277,7 +277,7 @@ class ClientController extends BaseController
         $nbDestinataires = count($destinatairesValid);
         $montantParDestinataire = $montantTotal / $nbDestinataires;
 
-        // Calcul des frais par destinataire
+        
         $fraisParDestinataire = $this->baremeFraisModel->getFraisApplicable('transfert', $montantParDestinataire);
         $fraisRetraitParDestinataire = 0.0;
 
@@ -295,7 +295,7 @@ class ClientController extends BaseController
             return redirect()->to('/client/dashboard');
         }
 
-        // Générer un lot_id (UUID v4)
+        
         $lotId = sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand(0, 0xffff), mt_rand(0, 0xffff),

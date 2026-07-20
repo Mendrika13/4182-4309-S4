@@ -10,7 +10,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <span class="navbar-brand fw-bold">📱 Mobile Money</span>
+        <span class="navbar-brand fw-bold"> Mobile Money</span>
         <div class="d-flex align-items-center">
             <span class="text-white me-3"><?= esc($client['telephone']) ?></span>
             <a href="<?= base_url('logout') ?>" class="btn btn-outline-light btn-sm">Déconnexion</a>
@@ -32,7 +32,7 @@
         </div>
     <?php endif; ?>
 
-    <!-- Solde -->
+    
     <div class="card shadow-sm border-0 mb-4 bg-primary text-white">
         <div class="card-body text-center py-4">
             <p class="mb-1">Solde actuel</p>
@@ -41,13 +41,13 @@
         </div>
     </div>
 
-    <!-- Formulaires rapides -->
+    
     <div class="row g-3 mb-4">
-        <!-- Dépôt -->
+        
         <div class="col-md-6">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-success">⬇️ Dépôt</h5>
+                    <h5 class="card-title text-success">️ Dépôt</h5>
                     <p class="text-muted small">Gratuit, sans frais.</p>
                     <form action="<?= base_url('client/depot') ?>" method="post">
                         <?= csrf_field() ?>
@@ -61,11 +61,11 @@
             </div>
         </div>
 
-        <!-- Retrait -->
+        
         <div class="col-md-6">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-danger">⬆️ Retrait</h5>
+                    <h5 class="card-title text-danger">️ Retrait</h5>
                     <p class="text-muted small">Frais selon barème en vigueur (offerts si crédit prépayé disponible).</p>
                     <form action="<?= base_url('client/retrait') ?>" method="post">
                         <?= csrf_field() ?>
@@ -81,11 +81,11 @@
     </div>
 
     <div class="row g-3 mb-4">
-        <!-- Transfert -->
+        
         <div class="col-md-6">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">↔️ Transfert Unique</h5>
+                    <h5 class="card-title text-primary">️ Transfert Unique</h5>
                     <p class="text-muted small">Vers un autre numéro Mobile Money (interne ou externe).</p>
                     <form action="<?= base_url('client/transfert') ?>" method="post">
                         <?= csrf_field() ?>
@@ -109,11 +109,11 @@
             </div>
         </div>
 
-        <!-- Envoi Multiple -->
+        
         <div class="col-md-6">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
-                    <h5 class="card-title text-dark">👥 Envoi Multiple</h5>
+                    <h5 class="card-title text-dark"> Envoi Multiple</h5>
                     <p class="text-muted small">Transférer un montant divisé équitablement entre plusieurs numéros internes.</p>
                     <form action="<?= base_url('client/transfert-multiple') ?>" method="post">
                         <?= csrf_field() ?>
@@ -138,7 +138,7 @@
         </div>
     </div>
 
-    <!-- Historique -->
+    
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white">
             <h5 class="mb-0">Historique des transactions</h5>

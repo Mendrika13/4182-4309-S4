@@ -14,18 +14,18 @@ class CommissionExterneModel extends Model
     protected $allowedFields    = ['pourcentage'];
     protected $useTimestamps    = false;
 
-    /**
-     * Retourne le pourcentage de commission externe configuré.
-     */
+    
+
+
     public function getPourcentage(): float
     {
         $config = $this->first();
         return $config ? (float) $config['pourcentage'] : 2.00;
     }
 
-    /**
-     * Met à jour le pourcentage de commission.
-     */
+    
+
+
     public function modifierPourcentage(float $pourcentage): bool
     {
         $config = $this->first();

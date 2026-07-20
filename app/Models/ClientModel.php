@@ -14,19 +14,19 @@ class ClientModel extends Model
     protected $allowedFields    = ['telephone', 'date_creation'];
     protected $useTimestamps    = false;
 
-    /**
-     * Recherche un client par son numéro de téléphone.
-     */
+    
+
+
     public function findByTelephone(string $telephone): ?array
     {
         return $this->where('telephone', $telephone)->first();
     }
 
-    /**
-     * Retourne le client correspondant au numéro donné. S'il n'existe pas
-     * encore en base, le compte est créé automatiquement (pas d'inscription
-     * préalable requise), conformément à la logique de login automatique.
-     */
+    
+
+
+
+
     public function trouverOuCreer(string $telephone): array
     {
         $client = $this->findByTelephone($telephone);
@@ -43,14 +43,14 @@ class ClientModel extends Model
         return $this->find($id);
     }
 
-    /**
-     * Calcule le solde dynamique d'un client à partir de l'historique des
-     * transactions, selon la formule :
-     *
-     * Solde = (Sommes des dépôts + Sommes des transferts reçus)
-     *       - (Sommes des retraits + Sommes des frais de retrait
-     *          + Sommes des transferts envoyés + Sommes des frais de transfert)
-     */
+    
+
+
+
+
+
+
+
     public function getSolde(int $clientId): float
     {
         $db = $this->db;
@@ -82,10 +82,10 @@ class ClientModel extends Model
         return $credits - $debits;
     }
 
-    /**
-     * Retourne tous les clients avec leur solde calculé, pour la vue
-     * opérateur (liste globale des comptes clients).
-     */
+    
+
+
+
     public function getTousAvecSolde(): array
     {
         $clients = $this->orderBy('date_creation', 'DESC')->findAll();
