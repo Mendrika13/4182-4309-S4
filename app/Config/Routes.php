@@ -35,6 +35,9 @@ $routes->group('operateur', ['filter' => 'operateurAuth'], static function ($rou
 
 $routes->group('client', ['filter' => 'clientAuth'], static function ($routes) {
     $routes->get('dashboard', 'ClientController::dashboard');
+    $routes->get('historique', 'ClientController::historique');
+    $routes->get('transfert-unique', 'ClientController::transfertUnique');
+    $routes->get('envoi-multiple', 'ClientController::envoiMultiple');
     $routes->post('depot', 'ClientController::depot');
     $routes->post('retrait', 'ClientController::retrait');
     $routes->post('transfert', 'ClientController::transfert');

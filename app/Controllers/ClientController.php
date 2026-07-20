@@ -36,25 +36,74 @@ class ClientController extends BaseController
 
 
 
-    public function dashboard()
+    protected function getAuthenticatedClient(): ?array
     {
         $clientId = (int) session()->get('client_id');
         $client   = $this->clientModel->find($clientId);
 
         if (! $client) {
-
             session()->remove(['client_id', 'telephone', 'isLoggedIn']);
 
+            return null;
+        }
+
+        return $client;
+    }
+
+    public function dashboard()
+    {
+        $client = $this->getAuthenticatedClient();
+
+        if ($client === null) {
             return redirect()->to('/login');
         }
 
         $data = [
-            'client'     => $client,
-            'solde'      => $this->clientModel->getSolde($clientId),
-            'historique' => $this->transactionModel->getHistoriqueClient($clientId),
+            'client' => $client,
+            'solde'  => $this->clientModel->getSolde((int) $client['id']),
         ];
 
         return view('client/dashboard.php', $data);
+    }
+
+    public function historique()
+    {
+        $client = $this->getAuthenticatedClient();
+
+        if ($client === null) {
+            return redirect()->to('/login');
+        }
+
+        $clientId = (int) $client['id'];
+
+        $data = [
+            'client'     => $client,
+            'historique' => $this->transactionModel->getHistoriqueClient($clientId),
+        ];
+
+        return view('client/historique.php', $data);
+    }
+
+    public function transfertUnique()
+    {
+        $client = $this->getAuthenticatedClient();
+
+        if ($client === null) {
+            return redirect()->to('/login');
+        }
+
+        return view('client/transfert.php', ['client' => $client]);
+    }
+
+    public function envoiMultiple()
+    {
+        $client = $this->getAuthenticatedClient();
+
+        if ($client === null) {
+            return redirect()->to('/login');
+        }
+
+        return view('client/envoi_multiple.php', ['client' => $client]);
     }
 
 
@@ -135,7 +184,7 @@ class ClientController extends BaseController
         if (! preg_match('/^0[0-9]{9}$/', $telephoneDest)) {
             session()->setFlashdata('error', 'Numéro de destinataire invalide. Format attendu : 0XXXXXXXXX.');
 
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/transfert-unique');
         }
 
         $client = $this->clientModel->find($clientId);
@@ -143,13 +192,13 @@ class ClientController extends BaseController
         if ($telephoneDest === $client['telephone']) {
             session()->setFlashdata('error', 'Vous ne pouvez pas effectuer un transfert vers votre propre numéro.');
 
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/transfert-unique');
         }
 
         if ($montant <= 0) {
             session()->setFlashdata('error', 'Le montant du transfert doit être supérieur à 0.');
 
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/transfert-unique');
         }
 
         $prefixeDest = substr($telephoneDest, 0, 3);
@@ -162,7 +211,7 @@ class ClientController extends BaseController
             $externeInfo = $this->prefixeExterneModel->trouverParPrefixe($prefixeDest);
             if ($externeInfo === null) {
                 session()->setFlashdata('error', "Le préfixe {$prefixeDest} du destinataire n'est pas reconnu par un opérateur.");
-                return redirect()->to('/client/dashboard');
+                return redirect()->to('/client/transfert-unique');
             }
         }
 
@@ -187,7 +236,7 @@ class ClientController extends BaseController
         if ($solde < $totalDebite) {
             session()->setFlashdata('error', 'Solde insuffisant pour ce transfert (requis : ' . number_format($totalDebite, 0, ',', ' ') . ' Ar, votre solde : ' . number_format($solde, 0, ',', ' ') . ' Ar).');
 
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/transfert-unique');
         }
 
         
@@ -228,7 +277,7 @@ class ClientController extends BaseController
 
         session()->setFlashdata('success', $msg);
 
-        return redirect()->to('/client/dashboard');
+        return redirect()->to('/client/transfert-unique');
     }
 
     public function transfertMultiple()
@@ -240,7 +289,7 @@ class ClientController extends BaseController
 
         if ($montantTotal <= 0) {
             session()->setFlashdata('error', 'Le montant total doit être supérieur à 0.');
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/envoi-multiple');
         }
 
         $telephones = preg_split('/[\s,;]+/', trim($telephonesRaw));
@@ -248,7 +297,7 @@ class ClientController extends BaseController
 
         if (empty($telephones)) {
             session()->setFlashdata('error', 'Veuillez saisir au moins un numéro de téléphone.');
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/envoi-multiple');
         }
 
         $destinatairesValid = [];
@@ -257,18 +306,18 @@ class ClientController extends BaseController
         foreach ($telephones as $tel) {
             if (! preg_match('/^0[0-9]{9}$/', $tel)) {
                 session()->setFlashdata('error', "Numéro de destinataire invalide : {$tel}.");
-                return redirect()->to('/client/dashboard');
+                return redirect()->to('/client/envoi-multiple');
             }
 
             if ($tel === $client['telephone']) {
                 session()->setFlashdata('error', "Vous ne pouvez pas inclure votre propre numéro dans l'envoi multiple.");
-                return redirect()->to('/client/dashboard');
+                return redirect()->to('/client/envoi-multiple');
             }
 
             $prefixe = substr($tel, 0, 3);
             if (! $this->prefixeModel->estAutorise($prefixe)) {
                 session()->setFlashdata('error', "Le numéro {$tel} n'est pas interne (préfixe {$prefixe} non reconnu). L'envoi multiple est réservé à l'interne.");
-                return redirect()->to('/client/dashboard');
+                return redirect()->to('/client/envoi-multiple');
             }
 
             $destinatairesValid[] = $tel;
@@ -292,7 +341,7 @@ class ClientController extends BaseController
 
         if ($solde < $totalRequis) {
             session()->setFlashdata('error', "Solde insuffisant pour cet envoi multiple (requis : " . number_format($totalRequis, 0, ',', ' ') . " Ar, votre solde : " . number_format($solde, 0, ',', ' ') . " Ar).");
-            return redirect()->to('/client/dashboard');
+            return redirect()->to('/client/envoi-multiple');
         }
 
         
@@ -331,6 +380,6 @@ class ClientController extends BaseController
         }
 
         session()->setFlashdata('success', "Envoi multiple de " . number_format($montantTotal, 0, ',', ' ') . " Ar vers {$nbDestinataires} destinataires effectué avec succès (divisé à " . number_format($montantParDestinataire, 0, ',', ' ') . " Ar par numéro).");
-        return redirect()->to('/client/dashboard');
+        return redirect()->to('/client/envoi-multiple');
     }
 }
