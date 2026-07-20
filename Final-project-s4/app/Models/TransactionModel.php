@@ -21,10 +21,7 @@ class TransactionModel extends Model
     ];
     protected $useTimestamps    = false;
 
-    /**
-     * Enregistre un dépôt. Le dépôt est gratuit (frais = 0) et crédite
-     * directement le compte du client (destinataire_id).
-     */
+
     public function enregistrerDepot(int $clientId, float $montant): int
     {
         return (int) $this->insert([
@@ -37,10 +34,7 @@ class TransactionModel extends Model
         ], true);
     }
 
-    /**
-     * Enregistre un retrait. Le client est l'expediteur (l'argent sort de
-     * son compte), il n'y a pas de destinataire.
-     */
+
     public function enregistrerRetrait(int $clientId, float $montant, float $frais): int
     {
         return (int) $this->insert([
@@ -53,9 +47,7 @@ class TransactionModel extends Model
         ], true);
     }
 
-    /**
-     * Enregistre un transfert entre deux clients.
-     */
+
     public function enregistrerTransfert(int $expediteurId, int $destinataireId, float $montant, float $frais): int
     {
         return (int) $this->insert([
@@ -68,11 +60,7 @@ class TransactionModel extends Model
         ], true);
     }
 
-    /**
-     * Historique complet des transactions d'un client (celles où il est
-     * expéditeur OU destinataire), avec le numéro de téléphone de la
-     * contrepartie éventuelle, trié du plus récent au plus ancien.
-     */
+
     public function getHistoriqueClient(int $clientId): array
     {
         $db = $this->db;
@@ -98,10 +86,7 @@ class TransactionModel extends Model
         return $db->query($sql, [$clientId, $clientId])->getResultArray();
     }
 
-    /**
-     * Gain global cumulé de l'opérateur : somme de tous les frais perçus
-     * (retraits + transferts) sur l'ensemble des transactions.
-     */
+
     public function getGainTotalOperateur(): float
     {
         $result = $this->selectSum('frais')->get()->getRowArray();

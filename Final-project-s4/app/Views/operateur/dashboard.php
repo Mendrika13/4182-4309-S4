@@ -29,7 +29,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- Gain global -->
     <div class="card shadow-sm border-0 mb-4 bg-dark text-white">
         <div class="card-body text-center py-4">
             <p class="mb-1">Gain global cumulé de l'opérateur</p>
@@ -40,7 +39,6 @@
 
     <div class="row g-4">
 
-        <!-- Liste des clients -->
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
@@ -82,7 +80,6 @@
             </div>
         </div>
 
-        <!-- Gestion des préfixes -->
         <div class="col-lg-4">
             <div class="card shadow-sm border-0 h-100">
                 <div class="card-header bg-white">

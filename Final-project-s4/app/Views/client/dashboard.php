@@ -32,7 +32,6 @@
         </div>
     <?php endif; ?>
 
-    <!-- Solde -->
     <div class="card shadow-sm border-0 mb-4 bg-primary text-white">
         <div class="card-body text-center py-4">
             <p class="mb-1">Solde actuel</p>
@@ -41,10 +40,8 @@
         </div>
     </div>
 
-    <!-- Formulaires rapides -->
     <div class="row g-3 mb-4">
 
-        <!-- Dépôt -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
@@ -62,7 +59,6 @@
             </div>
         </div>
 
-        <!-- Retrait -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
@@ -80,7 +76,6 @@
             </div>
         </div>
 
-        <!-- Transfert -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm border-0">
                 <div class="card-body">
@@ -104,7 +99,6 @@
 
     </div>
 
-    <!-- Historique -->
     <div class="card shadow-sm border-0">
         <div class="card-header bg-white">
             <h5 class="mb-0">Historique des transactions</h5>
