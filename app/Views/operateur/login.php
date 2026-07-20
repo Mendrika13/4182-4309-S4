@@ -11,7 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5 col-lg-4">
             <div class="text-center mb-4">
-                <h1 class="fw-bold text-white">🏦 Espace Opérateur</h1>
+                <h1 class="fw-bold text-white">Espace Opérateur</h1>
                 <p class="text-white-50">Accès réservé à l'administration</p>
             </div>
 

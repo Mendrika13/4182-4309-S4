@@ -11,7 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5 col-lg-4">
             <div class="text-center mb-4">
-                <h1 class="fw-bold text-primary">📱 Mobile Money</h1>
+                <h1 class="fw-bold text-primary"> Mobile Money</h1>
                 <p class="text-muted">Connectez-vous avec votre numéro de téléphone</p>
             </div>
 
