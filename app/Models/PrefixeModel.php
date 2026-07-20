@@ -2,31 +2,34 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Core\Database;
 
-class PrefixeModel extends Model
+class PrefixeModel
 {
-    protected $table            = 'prefixes';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['prefixe'];
-    protected $useTimestamps    = false;
-
-    /**
-     * Vérifie si un préfixe (3 premiers chiffres d'un numéro) est autorisé.
-     */
     public function estAutorise(string $prefixe): bool
     {
-        return $this->where('prefixe', $prefixe)->first() !== null;
+        $stmt = Database::connexion()->prepare('SELECT id FROM prefixes WHERE prefixe = ?');
+        $stmt->execute([$prefixe]);
+
+        return $stmt->fetch() !== false;
     }
 
-    /**
-     * Retourne la liste de tous les préfixes autorisés, triés.
-     */
     public function listeTriee(): array
     {
-        return $this->orderBy('prefixe', 'ASC')->findAll();
+        $stmt = Database::connexion()->query('SELECT * FROM prefixes ORDER BY prefixe ASC');
+
+        return $stmt->fetchAll();
+    }
+
+    public function ajouter(string $prefixe): void
+    {
+        $stmt = Database::connexion()->prepare('INSERT INTO prefixes (prefixe) VALUES (?)');
+        $stmt->execute([$prefixe]);
+    }
+
+    public function supprimer(int $id): void
+    {
+        $stmt = Database::connexion()->prepare('DELETE FROM prefixes WHERE id = ?');
+        $stmt->execute([$id]);
     }
 }

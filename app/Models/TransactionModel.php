@@ -2,110 +2,63 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Core\Database;
 
-class TransactionModel extends Model
+class TransactionModel
 {
-    protected $table            = 'transactions';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $allowedFields    = [
-        'type_operation',
-        'expediteur_id',
-        'destinataire_id',
-        'montant',
-        'frais',
-        'date_transaction',
-    ];
-    protected $useTimestamps    = false;
-
-    /**
-     * Enregistre un dépôt. Le dépôt est gratuit (frais = 0) et crédite
-     * directement le compte du client (destinataire_id).
-     */
     public function enregistrerDepot(int $clientId, float $montant): int
     {
-        return (int) $this->insert([
-            'type_operation'   => 'depot',
-            'expediteur_id'    => null,
-            'destinataire_id'  => $clientId,
-            'montant'          => $montant,
-            'frais'            => 0,
-            'date_transaction' => date('Y-m-d H:i:s'),
-        ], true);
+        $db = Database::connexion();
+        $stmt = $db->prepare(
+            'INSERT INTO transactions (type_operation, expediteur_id, destinataire_id, montant, frais, date_transaction)
+             VALUES (?, NULL, ?, ?, 0, ?)'
+        );
+        $stmt->execute(['depot', $clientId, $montant, date('Y-m-d H:i:s')]);
+
+        return (int) $db->lastInsertId();
     }
 
-    /**
-     * Enregistre un retrait. Le client est l'expediteur (l'argent sort de
-     * son compte), il n'y a pas de destinataire.
-     */
     public function enregistrerRetrait(int $clientId, float $montant, float $frais): int
     {
-        return (int) $this->insert([
-            'type_operation'   => 'retrait',
-            'expediteur_id'    => $clientId,
-            'destinataire_id'  => null,
-            'montant'          => $montant,
-            'frais'            => $frais,
-            'date_transaction' => date('Y-m-d H:i:s'),
-        ], true);
+        $db = Database::connexion();
+        $stmt = $db->prepare(
+            'INSERT INTO transactions (type_operation, expediteur_id, destinataire_id, montant, frais, date_transaction)
+             VALUES (?, ?, NULL, ?, ?, ?)'
+        );
+        $stmt->execute(['retrait', $clientId, $montant, $frais, date('Y-m-d H:i:s')]);
+
+        return (int) $db->lastInsertId();
     }
 
-    /**
-     * Enregistre un transfert entre deux clients.
-     */
     public function enregistrerTransfert(int $expediteurId, int $destinataireId, float $montant, float $frais): int
     {
-        return (int) $this->insert([
-            'type_operation'   => 'transfert',
-            'expediteur_id'    => $expediteurId,
-            'destinataire_id'  => $destinataireId,
-            'montant'          => $montant,
-            'frais'            => $frais,
-            'date_transaction' => date('Y-m-d H:i:s'),
-        ], true);
+        $db = Database::connexion();
+        $stmt = $db->prepare(
+            'INSERT INTO transactions (type_operation, expediteur_id, destinataire_id, montant, frais, date_transaction)
+             VALUES (?, ?, ?, ?, ?, ?)'
+        );
+        $stmt->execute(['transfert', $expediteurId, $destinataireId, $montant, $frais, date('Y-m-d H:i:s')]);
+
+        return (int) $db->lastInsertId();
     }
 
-    /**
-     * Historique complet des transactions d'un client (celles où il est
-     * expéditeur OU destinataire), avec le numéro de téléphone de la
-     * contrepartie éventuelle, trié du plus récent au plus ancien.
-     */
     public function getHistoriqueClient(int $clientId): array
     {
-        $db = $this->db;
+        $stmt = Database::connexion()->prepare(
+            'SELECT * FROM v_historique_transactions
+             WHERE expediteur_id = ? OR destinataire_id = ?
+             ORDER BY date_transaction DESC, id DESC'
+        );
+        $stmt->execute([$clientId, $clientId]);
 
-        $sql = "
-            SELECT
-                t.id,
-                t.type_operation,
-                t.montant,
-                t.frais,
-                t.date_transaction,
-                t.expediteur_id,
-                t.destinataire_id,
-                ce.telephone AS telephone_expediteur,
-                cd.telephone AS telephone_destinataire
-            FROM transactions t
-            LEFT JOIN clients ce ON ce.id = t.expediteur_id
-            LEFT JOIN clients cd ON cd.id = t.destinataire_id
-            WHERE t.expediteur_id = ? OR t.destinataire_id = ?
-            ORDER BY t.date_transaction DESC, t.id DESC
-        ";
-
-        return $db->query($sql, [$clientId, $clientId])->getResultArray();
+        return $stmt->fetchAll();
     }
 
-    /**
-     * Gain global cumulé de l'opérateur : somme de tous les frais perçus
-     * (retraits + transferts) sur l'ensemble des transactions.
-     */
     public function getGainTotalOperateur(): float
     {
-        $result = $this->selectSum('frais')->get()->getRowArray();
+        $stmt = Database::connexion()->query('SELECT gain_total FROM v_gain_operateur');
+        $ligne = $stmt->fetch();
 
-        return (float) ($result['frais'] ?? 0);
+        return $ligne ? (float) $ligne['gain_total'] : 0.0;
     }
 }
