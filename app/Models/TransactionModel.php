@@ -18,6 +18,10 @@ class TransactionModel extends Model
         'montant',
         'frais',
         'date_transaction',
+        'est_externe',
+        'autre_operateur_id',
+        'commission',
+        'lot_id',
     ];
     protected $useTimestamps    = false;
 
@@ -56,15 +60,27 @@ class TransactionModel extends Model
     /**
      * Enregistre un transfert entre deux clients.
      */
-    public function enregistrerTransfert(int $expediteurId, int $destinataireId, float $montant, float $frais): int
-    {
+    public function enregistrerTransfert(
+        int $expediteurId,
+        ?int $destinataireId,
+        float $montant,
+        float $frais,
+        bool $estExterne = false,
+        ?int $autreOperateurId = null,
+        float $commission = 0.0,
+        ?string $lotId = null
+    ): int {
         return (int) $this->insert([
-            'type_operation'   => 'transfert',
-            'expediteur_id'    => $expediteurId,
-            'destinataire_id'  => $destinataireId,
-            'montant'          => $montant,
-            'frais'            => $frais,
-            'date_transaction' => date('Y-m-d H:i:s'),
+            'type_operation'     => 'transfert',
+            'expediteur_id'      => $expediteurId,
+            'destinataire_id'    => $destinataireId,
+            'montant'            => $montant,
+            'frais'              => $frais,
+            'date_transaction'   => date('Y-m-d H:i:s'),
+            'est_externe'        => $estExterne ? 1 : 0,
+            'autre_operateur_id' => $autreOperateurId,
+            'commission'         => $commission,
+            'lot_id'             => $lotId,
         ], true);
     }
 
@@ -87,10 +103,16 @@ class TransactionModel extends Model
                 t.expediteur_id,
                 t.destinataire_id,
                 ce.telephone AS telephone_expediteur,
-                cd.telephone AS telephone_destinataire
+                cd.telephone AS telephone_destinataire,
+                t.est_externe,
+                t.autre_operateur_id,
+                ao.nom AS autre_operateur_nom,
+                t.commission,
+                t.lot_id
             FROM transactions t
             LEFT JOIN clients ce ON ce.id = t.expediteur_id
             LEFT JOIN clients cd ON cd.id = t.destinataire_id
+            LEFT JOIN autres_operateurs ao ON ao.id = t.autre_operateur_id
             WHERE t.expediteur_id = ? OR t.destinataire_id = ?
             ORDER BY t.date_transaction DESC, t.id DESC
         ";
@@ -107,5 +129,18 @@ class TransactionModel extends Model
         $result = $this->selectSum('frais')->get()->getRowArray();
 
         return (float) ($result['frais'] ?? 0);
+    }
+
+    /**
+     * Récupère le détail des gains interne et externe.
+     */
+    public function getGainsSplit(): array
+    {
+        $db = $this->db;
+        $row = $db->query("SELECT gain_interne, gain_externe FROM v_gain_operateur")->getRowArray();
+        return [
+            'gain_interne' => (float) ($row['gain_interne'] ?? 0.0),
+            'gain_externe' => (float) ($row['gain_externe'] ?? 0.0)
+        ];
     }
 }

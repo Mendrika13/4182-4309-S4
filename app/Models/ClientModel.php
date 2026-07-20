@@ -62,12 +62,13 @@ class ClientModel extends Model
                 COALESCE(SUM(CASE WHEN type_operation = 'retrait'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
                 COALESCE(SUM(CASE WHEN type_operation = 'retrait'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
                 COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
-                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert
+                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = 'transfert' AND expediteur_id   = ? THEN commission ELSE 0 END), 0) AS total_commission
             FROM transactions
         ";
 
         $result = $db->query($sql, [
-            $clientId, $clientId, $clientId, $clientId, $clientId, $clientId,
+            $clientId, $clientId, $clientId, $clientId, $clientId, $clientId, $clientId,
         ])->getRowArray();
 
         $credits = (float) $result['total_depots'] + (float) $result['total_transferts_recus'];
@@ -75,7 +76,8 @@ class ClientModel extends Model
         $debits = (float) $result['total_retraits']
             + (float) $result['total_frais_retrait']
             + (float) $result['total_transferts_envoyes']
-            + (float) $result['total_frais_transfert'];
+            + (float) $result['total_frais_transfert']
+            + (float) $result['total_commission'];
 
         return $credits - $debits;
     }
