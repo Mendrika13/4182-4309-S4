@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Money - Connexion</title>
+    <title>VolaPay - Connexion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
         <div class="text-center mb-4" style="text-align: center; margin-bottom: 32px;">
             <a href="#" class="nav-brand" style="justify-content: center; margin-bottom: 12px; font-size: 24px;">
                 <span class="brand-icon">M</span>
-                Mobile Money
+                VolaPay
             </a>
             <p style="color: var(--text-secondary); font-size: 14px;">Connectez-vous avec votre numéro de téléphone</p>
         </div>
