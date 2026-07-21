@@ -14,13 +14,6 @@ class BaremeFraisModel extends Model
     protected $allowedFields    = ['type_operation', 'montant_min', 'montant_max', 'frais'];
     protected $useTimestamps    = false;
 
-    
-
-
-
-
-
-
 
     public function getFraisApplicable(string $typeOperation, float $montant): float
     {
