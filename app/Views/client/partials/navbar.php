@@ -1,7 +1,7 @@
-<!-- NAVBAR -->
+
 <nav class="navbar scrolled navbar-client" id="navbar">
     <div class="container">
-        <a href="<?= base_url('client/dashboard') ?>" class="nav-brand">Mobile Money</a>
+        <a href="<?= base_url('client/dashboard') ?>" class="nav-brand">VolaPay</a>
         <ul class="nav-links" id="navLinks">
             <li><a href="<?= base_url('client/dashboard') ?>" class="<?= ($activePage ?? '') === 'accueil' ? 'active' : '' ?>">Accueil</a></li>
             <li><a href="<?= base_url('client/historique') ?>" class="<?= ($activePage ?? '') === 'historique' ? 'active' : '' ?>">Historique</a></li>

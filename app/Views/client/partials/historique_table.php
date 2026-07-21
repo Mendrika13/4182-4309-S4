@@ -1,4 +1,4 @@
-<!-- Historique des Transactions -->
+
 <div class="table-container-custom fade-up visible">
     <div class="table-header-custom">
         <h3 class="table-header-title">Historique des transactions</h3>

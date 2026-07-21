@@ -1,10 +1,10 @@
-        // NAVBAR
+
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 40);
         }, { passive: true });
 
-        // MOBILE NAV
+  
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
         if (navToggle && navLinks) {
@@ -20,7 +20,6 @@
             });
         }
 
-        // FEATURE TABS
         const tabs = document.querySelectorAll('.feature-tab');
         const panels = document.querySelectorAll('.feature-panel');
 
@@ -40,7 +39,7 @@
             });
         });
 
-        // PRICING TOGGLE
+
         const pricingToggle = document.getElementById('pricingToggle');
         const monthlyLabel = document.getElementById('monthlyLabel');
         const annualLabel = document.getElementById('annualLabel');
@@ -56,7 +55,7 @@
 
             priceValues.forEach(el => {
                 const newVal = el.dataset[isAnnual ? 'annual' : 'monthly'];
-                // Skip animation for FREE label
+  
                 if (newVal === 'FREE') return;
 
                 el.classList.add('changing');
@@ -76,7 +75,7 @@
             });
         });
 
-        // COUNTER ANIMATION
+
         function animateCounter(el) {
             const target = parseFloat(el.dataset.target);
             const suffix = el.dataset.suffix || '';
@@ -99,7 +98,7 @@
             requestAnimationFrame(tick);
         }
 
-        // SCROLL REVEAL
+  
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (!prefersReducedMotion) {
