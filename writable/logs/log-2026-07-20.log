@@ -1,0 +1,335 @@
+ERROR - 2026-07-20 13:20:05 --> Error connecting to the database: Error: Class "SQLite3" not found in D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php:111
+Stack trace:
+#0 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+#8 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+#9 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+#10 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(444): CodeIgniter\CLI\Console->run()
+#11 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(166): CodeIgniter\Boot::runCommand()
+#12 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\spark(87): CodeIgniter\Boot::bootSpark()
+#13 {main}
+CRITICAL - 2026-07-20 13:20:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: Class "SQLite3" not found
+[Method: CLI, Route: migrate:status]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH\Database\BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH\Database\BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+ 5 SYSTEMPATH\Database\MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+ 6 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 7 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+10 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand()
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark()
+ERROR - 2026-07-20 13:21:00 --> unknown database `mobile_money`
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 163.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH\Database\MigrationRunner.php(868): CodeIgniter\Database\Forge->createTable()
+ 6 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 7 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+10 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand()
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark()
+CRITICAL - 2026-07-20 13:21:00 --> CodeIgniter\Database\Exceptions\DatabaseException: unknown database `mobile_money`
+[Method: CLI, Route: migrate:status]
+in SYSTEMPATH\Database\BaseConnection.php on line 863.
+ 1 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Database\MigrationRunner.php(868): CodeIgniter\Database\Forge->createTable()
+ 3 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 4 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+ 5 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+ 6 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+ 7 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+ 8 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand()
+ 9 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark()
+CRITICAL - 2026-07-20 13:21:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: unknown database `mobile_money`
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 174.
+ 1 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 2 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH\Database\MigrationRunner.php(868): CodeIgniter\Database\Forge->createTable()
+ 5 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 6 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+ 7 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+ 8 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+ 9 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand()
+11 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark()
+CRITICAL - 2026-07-20 13:21:00 --> [Caused by] SQLite3Exception: unknown database `mobile_money`
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 163.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH\Database\MigrationRunner.php(868): CodeIgniter\Database\Forge->createTable()
+ 6 SYSTEMPATH\Database\MigrationRunner.php(699): CodeIgniter\Database\MigrationRunner->ensureTable()
+ 7 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory()
+ 8 SYSTEMPATH\CLI\Commands.php(72): CodeIgniter\Commands\Database\MigrateStatus->run()
+ 9 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run()
+10 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+11 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand()
+12 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark()
+CRITICAL - 2026-07-20 13:32:26 --> ErrorException: include(D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\composer/../../app/Controllers/BaseController.php): Failed to open stream: No such file or directory
+[Method: GET, Route: operateur/login]
+in VENDORPATH\composer\ClassLoader.php on line 571.
+ 1 VENDORPATH\composer\ClassLoader.php(571): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 VENDORPATH\composer\ClassLoader.php(571): include()
+ 3 VENDORPATH\composer\ClassLoader.php(428): Composer\Autoload\includeFile()
+ 4 APPPATH\Controllers\OperateurController.php(12): Composer\Autoload\ClassLoader->loadClass()
+ 5 VENDORPATH\composer\ClassLoader.php(571): include('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\app\\Controllers\\OperateurController.php')
+ 6 VENDORPATH\composer\ClassLoader.php(428): Composer\Autoload\includeFile()
+ 7 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 8 SYSTEMPATH\Router\Router.php(790): class_exists()
+ 9 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->processRouteAttributes()
+10 SYSTEMPATH\CodeIgniter.php(852): CodeIgniter\Router\Router->handle()
+11 SYSTEMPATH\CodeIgniter.php(464): CodeIgniter\CodeIgniter->tryToRouteIt()
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-20 13:32:26 --> ErrorException: include(D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\composer/../../app/Controllers/BaseController.php): Failed to open stream: No such file or directory
+[Method: POST, Route: operateur/login]
+in VENDORPATH\composer\ClassLoader.php on line 571.
+ 1 VENDORPATH\composer\ClassLoader.php(571): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 VENDORPATH\composer\ClassLoader.php(571): include()
+ 3 VENDORPATH\composer\ClassLoader.php(428): Composer\Autoload\includeFile()
+ 4 APPPATH\Controllers\OperateurController.php(12): Composer\Autoload\ClassLoader->loadClass()
+ 5 VENDORPATH\composer\ClassLoader.php(571): include('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\app\\Controllers\\OperateurController.php')
+ 6 VENDORPATH\composer\ClassLoader.php(428): Composer\Autoload\includeFile()
+ 7 [internal function]: Composer\Autoload\ClassLoader->loadClass()
+ 8 SYSTEMPATH\Router\Router.php(790): class_exists()
+ 9 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->processRouteAttributes()
+10 SYSTEMPATH\CodeIgniter.php(852): CodeIgniter\Router\Router->handle()
+11 SYSTEMPATH\CodeIgniter.php(464): CodeIgniter\CodeIgniter->tryToRouteIt()
+12 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-20 13:33:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:33:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 13:33:40 --> CodeIgniter\Filters\Exceptions\FilterException: "operateurAuth" filter must have a matching alias defined.
+[Method: GET, Route: operateur/dashboard]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias()
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter()
+ 3 SYSTEMPATH\CodeIgniter.php(476): CodeIgniter\Filters\Filters->enableFilters()
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-20 13:33:40 --> CodeIgniter\Filters\Exceptions\FilterException: "operateurAuth" filter must have a matching alias defined.
+[Method: POST, Route: operateur/commission/modifier]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias()
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter()
+ 3 SYSTEMPATH\CodeIgniter.php(476): CodeIgniter\Filters\Filters->enableFilters()
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-20 13:33:40 --> CodeIgniter\Filters\Exceptions\FilterException: "operateurAuth" filter must have a matching alias defined.
+[Method: POST, Route: operateur/autre-operateur/ajouter]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias()
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter()
+ 3 SYSTEMPATH\CodeIgniter.php(476): CodeIgniter\Filters\Filters->enableFilters()
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-20 13:33:40 --> CodeIgniter\Filters\Exceptions\FilterException: "operateurAuth" filter must have a matching alias defined.
+[Method: GET, Route: operateur/dashboard]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias()
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter()
+ 3 SYSTEMPATH\CodeIgniter.php(476): CodeIgniter\Filters\Filters->enableFilters()
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-20 13:34:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:34:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 13:34:06 --> CodeIgniter\Filters\Exceptions\FilterException: "operateurAuth" filter must have a matching alias defined.
+[Method: GET, Route: operateur/dashboard]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias()
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter()
+ 3 SYSTEMPATH\CodeIgniter.php(476): CodeIgniter\Filters\Filters->enableFilters()
+ 4 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-20 13:34:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:34:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:34:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 13:34:36 --> Error connecting to the database: Error: Class "SQLite3" not found in D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php:111
+Stack trace:
+#0 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\app\Models\TransactionModel.php(140): CodeIgniter\Database\BaseConnection->query()
+#4 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\app\Controllers\OperateurController.php(78): App\Models\TransactionModel->getGainsSplit()
+#5 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(974): App\Controllers\OperateurController->dashboard()
+#6 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+#7 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+#8 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#9 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#10 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\public\index.php(59): CodeIgniter\Boot::bootWeb()
+#11 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('...')
+#12 {main}
+CRITICAL - 2026-07-20 13:34:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: Class "SQLite3" not found
+[Method: GET, Route: operateur/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 APPPATH\Models\TransactionModel.php(140): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH\Controllers\OperateurController.php(78): App\Models\TransactionModel->getGainsSplit()
+ 5 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\OperateurController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-20 13:41:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 13:41:40 --> UNIQUE constraint failed: autres_operateurs.nom
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 163.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2355): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH\Model.php(357): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH\Model.php(670): CodeIgniter\BaseModel->insert()
+ 8 APPPATH\Controllers\OperateurController.php(150): CodeIgniter\Model->insert()
+ 9 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\OperateurController->ajouterAutreOperateur()
+10 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+11 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:43:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:43:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:43:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:44:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:45:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:45:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:45:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:45:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:46:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:46:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:09:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:09:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:09:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:09:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:10:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:10:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 14:10:36 --> Error connecting to the database: Error: Class "SQLite3" not found in D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php:111
+Stack trace:
+#0 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1659): CodeIgniter\Database\BaseConnection->query()
+#4 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Model.php(194): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\app\Controllers\ClientController.php(42): CodeIgniter\BaseModel->find()
+#7 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+#8 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+#9 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+#10 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\public\index.php(59): CodeIgniter\Boot::bootWeb()
+#13 D:\Mr Rojo\4182-4309-S4-01\4182-4309-S4-01\vendor\codeigniter4\framework\system\rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 14:10:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: Class "SQLite3" not found
+[Method: GET, Route: client/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 606.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1659): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH\Model.php(194): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(615): CodeIgniter\Model->doFind()
+ 6 APPPATH\Controllers\ClientController.php(42): CodeIgniter\BaseModel->find()
+ 7 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-20 14:13:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:13:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:13:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:14:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:17:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:32:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:32:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 14:40:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:21:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:23:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:24:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:24:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:24:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:24:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:26:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:27:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:27:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:27:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:27:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:30:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:30:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

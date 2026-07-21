@@ -1,0 +1,208 @@
+DEBUG - 2026-07-21 01:28:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 01:28:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:19:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:19:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:20:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:22:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:22:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:22:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:22:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:22:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:23:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:23:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:23:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-21 02:29:40 --> Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 4 APPPATH\Models\ClientModel.php(70): CodeIgniter\Database\BaseConnection->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ', [...])
+ 5 APPPATH\Controllers\ClientController.php(63): App\Models\ClientModel->getSolde(2)
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-21 02:29:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+[Method: GET, Route: client/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 863.
+ 1 APPPATH\Models\ClientModel.php(70): CodeIgniter\Database\BaseConnection->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ', [...])
+ 2 APPPATH\Controllers\ClientController.php(63): App\Models\ClientModel->getSolde(2)
+ 3 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+ 4 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 5 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-21 02:29:40 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 174.
+ 1 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 3 APPPATH\Models\ClientModel.php(70): CodeIgniter\Database\BaseConnection->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ', [...])
+ 4 APPPATH\Controllers\ClientController.php(63): App\Models\ClientModel->getSolde(2)
+ 5 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 7 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+CRITICAL - 2026-07-21 02:29:40 --> [Caused by] Exception: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = 2 THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = 2 THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ')
+ 4 APPPATH\Models\ClientModel.php(70): CodeIgniter\Database\BaseConnection->query('
+            SELECT
+                COALESCE(SUM(CASE WHEN type_operation = \'depot\'     AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_depots,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND destinataire_id = ? THEN montant ELSE 0 END), 0) AS total_transferts_recus,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_retraits,
+                COALESCE(SUM(CASE WHEN type_operation = \'retrait\'   AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_retrait,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN montant ELSE 0 END), 0) AS total_transferts_envoyes,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN frais   ELSE 0 END), 0) AS total_frais_transfert,
+                COALESCE(SUM(CASE WHEN type_operation = \'transfert\' AND expediteur_id   = ? THEN commission ELSE 0 END), 0) AS total_commission
+            FROM transactions
+        ', [...])
+ 5 APPPATH\Controllers\ClientController.php(63): App\Models\ClientModel->getSolde(2)
+ 6 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\ClientController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 8 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Mr Rojo\\4182-4309-S4-01\\4182-4309-S4-01\\public\\index.php')
+DEBUG - 2026-07-21 02:48:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 02:49:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
