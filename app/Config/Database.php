@@ -6,19 +6,10 @@ use CodeIgniter\Database\Config;
 
 class Database extends Config
 {
-    /**
-     * Path to the directory that holds the database files.
-     */
     public string $filesPath = APPPATH . 'Database' . DIRECTORY_SEPARATOR;
 
-    /**
-     * The default database connection group.
-     */
     public string $defaultGroup = 'default';
 
-    /**
-     * Default database connection.
-     */
     public array $default = [
         'DSN'          => '',
         'DBDriver'     => 'SQLite3',
@@ -36,9 +27,6 @@ class Database extends Config
         ],
     ];
 
-    /**
-     * Database connection for testing.
-     */
     public array $tests = [
         'DSN'          => '',
         'DBDriver'     => 'SQLite3',
